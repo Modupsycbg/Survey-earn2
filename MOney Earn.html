@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SurveyEarn - Get Paid for Surveys</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+        }
+
+        /* Page container */
+        .page-container {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Landing Page */
+        .landing-page {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero-image {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Auth Forms */
+        .auth-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-container.active {
+            display: flex;
+        }
+
+        .auth-box {
+            background-color: white;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            position: relative;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #777;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--dark);
+        }
+
+        .auth-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-control {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
+            outline: none;
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle i {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .wallet-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .wallet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .wallet-title {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .wallet-amount {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .wallet-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .wallet-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .wallet-btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        .wallet-btn-outline {
+            border: 1px solid white;
+            color: white;
+        }
+
+        .wallet-btn-primary:hover {
+            background-color: #f0f0f0;
+        }
+
+        .wallet-btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dashboard-nav {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+
+        .nav-tab {
+            padding: 15px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background-color: #f9f9f9;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Profile Section */
+        .profile-info {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-row {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-label {
+            width: 150px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .profile-value {
+            flex: 1;
+        }
+
+        /* Tasks Section */
+        .tasks-list {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s;
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .task-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .task-reward {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .task-btn {
+            padding: 8px 16px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .task-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Levels Section */
+        .levels-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .level-item {
+            margin-bottom: 30px;
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .level-title {
+            font-weight: 600;
+        }
+
+        .level-progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .level-progress {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .level-percent {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Deposit Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: #777;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .modal-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .modal-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .modal-submit:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .wallet-actions {
+                flex-direction: column;
+            }
+
+            .dashboard-nav {
+                overflow-x: auto;
+            }
+
+            .profile-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .profile-label {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="page-container">
+        <!-- Navigation -->
+        <nav>
+            <div class="nav-container">
+                <a href="#" class="logo" id="homeLogo">SurveyEarn</a>
+                <div class="nav-links">
+                    <a href="#features" id="featuresLink">Features</a>
+                    <a href="#" id="navLogin">Login</a>
+                    <a href="#" id="navSignup" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Landing Page -->
+        <div class="landing-page" id="landingPage">
+            <div class="hero">
+                <h1>Get Paid for Your Opinions</h1>
+                <p>Join thousands of people earning money by completing online surveys. Sign up now and start earning instantly!</p>
+                <div class="hero-buttons">
+                    <a href="#" id="heroSignup" class="btn btn-primary">Start Earning Now</a>
+                    <a href="#how-it-works" class="btn btn-outline">Learn More</a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://illustrations.popsy.co/amber/digital-nomad.svg" alt="People earning money online">
+                </div>
+            </div>
+
+            <section class="features" id="features">
+                <h2 class="section-title">Why Choose SurveyEarn?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3>Earn Real Money</h3>
+                        <p>Get paid for every survey you complete. Withdraw your earnings directly to your bank account.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Flexible Schedule</h3>
+                        <p>Complete surveys anytime, anywhere. Work at your own pace with no commitments.</p>
+                    </div>
+                                       <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Level Up</h3>
+                        <p>Unlock higher-paying surveys and bonuses as you complete more tasks.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features" id="how-it-works">
+                <h2 class="section-title">How It Works</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h3>1. Sign Up</h3>
+                        <p>Create your free account in just a few minutes. No credit card required.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3>2. Complete Surveys</h3>
+                        <p>Answer questions about products, services, and your opinions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <h3>3. Get Paid</h3>
+                        <p>Earn money for each completed survey. Cash out anytime.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login-container" class="auth-container">
+            <div class="auth-box">
+                <span class="close-btn" id="close-login">&times;</span>
+                <h2 class="auth-title">Welcome Back</h2>
+                <form id="login-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group password-toggle">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+                        <i class="far fa-eye" id="toggle-login-password"></i>
+                    </div>
+                    <div class="form-group" style="align-items: flex-end;">
+                        <a href="#" id="show-forgot-password" style="font-size: 14px;">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                    <div class="form-footer">
+                        Don't have an account? <a href="#" id="show-signup-from-login">Sign up</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signup-container" class="auth-container">
+            <div class="auth-box">
+                <span class="close-btn" id="close-signup">&times;</span>
+                <h2 class="auth-title">Create Account</h2>
+                <form id="signup-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-dob">Date of Birth</label>
+                        <input type="date" id="signup-dob" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-phone">Phone Number</label>
+                        <input type="tel" id="signup-phone" class="form-control" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-address">Address</label>
+                        <textarea id="signup-address" class="form-control" rows="2" placeholder="Enter your address" required></textarea>
+                    </div>
+                    <div class="form-group password-toggle">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
+                        <i class="far fa-eye" id="toggle-signup-password"></i>
+                    </div>
+                    <div class="form-group password-toggle">
+                        <label for="signup-confirm-password">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password" required>
+                        <i class="far fa-eye" id="toggle-confirm-password"></i>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agree-terms" required>
+                        <label for="agree-terms">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                    <div class="form-footer">
+                        Already have an account? <a href="#" id="show-login-from-signup">Log in</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Forgot Password Form -->
+        <div id="forgot-password-container" class="auth-container">
+            <div class="auth-box">
+                <span class="close-btn" id="close-forgot-password">&times;</span>
+                <h2 class="auth-title">Reset Password</h2>
+                <form id="forgot-password-form" class="auth-form">
+                    <p style="text-align: center; margin-bottom: 20px; color: #666;">Enter your email address to receive a password reset link.</p>
+                    <div class="form-group">
+                        <label for="forgot-email">Email</label>
+                        <input type="email" id="forgot-email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Reset Link</button>
+                    <div class="form-footer">
+                        Remember your password? <a href="#" id="back-to-login">Log in</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard" id="dashboard">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Dashboard</h1>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+
+            <!-- Wallet Card -->
+            <div class="wallet-card">
+                <div class="wallet-header">
+                    <div class="wallet-title">Wallet Balance</div>
+                </div>
+                <div class="wallet-amount">$<span id="walletBalance">0.00</span></div>
+                <div class="wallet-actions">
+                    <button class="wallet-btn wallet-btn-primary" id="fundWalletBtn">Deposit</button>
+                    <button class="wallet-btn wallet-btn-outline" id="withdrawBtn">Withdraw</button>
+                </div>
+            </div>
+
+            <!-- Dashboard Navigation Tabs -->
+            <div class="dashboard-nav">
+                <div class="nav-tab active" data-tab="profile">My Profile</div>
+                <div class="nav-tab" data-tab="tasks">Tasks</div>
+                <div class="nav-tab" data-tab="levels">Levels</div>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="profileTab" class="tab-content active">
+                <div class="profile-info">
+                    <div class="profile-row">
+                        <div class="profile-label">Name:</div>
+                        <div class="profile-value" id="profileName">John Doe</div>
+                    </div>
+                    <div class="profile-row">
+                        <div class="profile-label">Email:</div>
+                        <div class="profile-value" id="profileEmail">john.doe@example.com</div>
+                    </div>
+                    <div class="profile-row">
+                        <div class="profile-label">Phone:</div>
+                        <div class="profile-value" id="profilePhone">+1234567890</div>
+                    </div>
+                    <div class="profile-row">
+                        <div class="profile-label">Address:</div>
+                        <div class="profile-value" id="profileAddress">123 Main St, Anytown, USA</div>
+                    </div>
+                    <div class="profile-row">
+                        <div class="profile-label">Member Since:</div>
+                        <div class="profile-value" id="profileJoinDate">June 2023</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tasksTab" class="tab-content">
+                <div class="tasks-list">
+                    <div class="task-item">
+                        <div class="task-info">
+                            <h4>Consumer Preferences Survey</h4>
+                            <p>10-15 minutes | Market Research</p>
+                        </div>
+                        <div class="task-reward">$2.50</div>
+                        <button class="task-btn">Start</button>
+                    </div>
+                    <div class="task-item">
+                        <div class="task-info">
+                            <h4>Product Feedback</h4>
+                            <p>5-7 minutes | Technology</p>
+                        </div>
+                        <div class="task-reward">$1.25</div>
+                        <button class="task-btn">Start</button>
+                    </div>
+                    <div class="task-item">
+                        <div class="task-info">
+                            <h4>Social Media Habits</h4>
+                            <p>8-10 minutes | Behavioral Research</p>
+                        </div>
+                        <div class="task-reward">$1.75</div>
+                        <button class="task-btn">Start</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="levelsTab" class="tab-content">
+                <div class="levels-container">
+                    <div class="level-item">
+                        <div class="level-header">
+                            <span class="level-title">Bronze Level</span>
+                            <span class="level-percent">75% completed</span>
+                        </div>
+                        <div class="level-progress-container">
+                            <div class="level-progress" style="width: 75%;"></div>
+                        </div>
+                        <p>Complete 3 more surveys to reach Silver Level</p>
+                    </div>
+                    <div class="level-item">
+                        <div class="level-header">
+                            <span class="level-title">Silver Level</span>
+                            <span class="level-percent">25% completed</span>
+                        </div>
+                        <div class="level-progress-container">
+                            <div class="level-progress" style="width: 25%;"></div>
+                        </div>
+                        <p>Complete 8 more surveys to reach Gold Level</p>
+                    </div>
+                    <div class="level-item">
+                        <div class="level-header">
+                            <span class="level-title">Gold Level</span>
+                            <span class="level-percent">0% completed</span>
+                        </div>
+                        <div class="level-progress-container">
+                            <div class="level-progress" style="width: 0%;"></div>
+                        </div>
+                        <p>Complete 15 more surveys to unlock premium surveys</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deposit Modal -->
+        <div class="modal" id="depositModal">
+            <div class="modal-content">
+                <span class="modal-close" id="close-deposit">&times;</span>
+                <h2 class="modal-title">Deposit Funds</h2>
+                <form class="modal-form" id="depositForm">
+                    <div class="form-group">
+                        <label for="deposit-amount">Amount ($)</label>
+                        <input type="number" id="deposit-amount" class="form-control" min="5" step="0.01" placeholder="10.00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="deposit-method">Payment Method</label>
+                        <select id="deposit-method" class="form-control" required>
+                            <option value="">Select payment method</option>
+                            <option value="bank">Bank Transfer</option>
+                            <option value="card">Credit/Debit Card</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="modal-submit">Deposit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Withdraw Modal -->
+        <div class="modal" id="withdrawModal">
+            <div class="modal-content">
+                <span class="modal-close" id="close-withdraw">&times;</span>
+                <h2 class="modal-title">Withdraw Funds</h2>
+                <form class="modal-form" id="withdrawForm">
+                    <div class="form-group">
+                        <label for="withdraw-amount">Amount ($)</label>
+                        <input type="number" id="withdraw-amount" class="form-control" min="5" step="0.01" placeholder="10.00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="withdraw-method">Withdrawal Method</label>
+                        <select id="withdraw-method" class="form-control" required>
+                            <option value="">Select withdrawal method</option>
+                            <option value="bank">Bank Transfer</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="bank-details" style="display: none;">
+                        <label for="account-number">Account Number</label>
+                        <input type="text" id="account-number" class="form-control" placeholder="Enter account number">
+                        <label for="routing-number" style="margin-top: 10px;">Routing Number</label>
+                        <input type="text" id="routing-number" class="form-control" placeholder="Enter routing number">
+                    </div>
+                    <button type="submit" class="modal-submit">Withdraw</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Main Application Code
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const landingPage = document.getElementById('landingPage');
+    const dashboard = document.getElementById('dashboard');
+    
+    // Auth elements
+    const navLogin = document.getElementById('navLogin');
+    const navSignup = document.getElementById('navSignup');
+    const heroSignup = document.getElementById('heroSignup');
+    const loginContainer = document.getElementById('login-container');
+    const signupContainer = document.getElementById('signup-container');
+    const forgotPasswordContainer = document.getElementById('forgot-password-container');
+    const closeLogin = document.getElementById('close-login');
+    const closeSignup = document.getElementById('close-signup');
+    const closeForgotPassword = document.getElementById('close-forgot-password');
+    const showForgotPassword = document.getElementById('show-forgot-password');
+    const showSignupFromLogin = document.getElementById('show-signup-from-login');
+    const showLoginFromSignup = document.getElementById('show-login-from-signup');
+    const backToLogin = document.getElementById('back-to-login');
+    
+    // Dashboard elements
+    const logoutBtn = document.getElementById('logoutBtn');
+    const navTabs = document.querySelectorAll('.nav-tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const fundWalletBtn = document.getElementById('fundWalletBtn');
+    const withdrawBtn = document.getElementById('withdrawBtn');
+    const depositModal = document.getElementById('depositModal');
+    const withdrawModal = document.getElementById('withdrawModal');
+    const closeDeposit = document.getElementById('close-deposit');
+    const closeWithdraw = document.getElementById('close-withdraw');
+    const withdrawMethod = document.getElementById('withdraw-method');
+    const bankDetails = document.getElementById('bank-details');
+
+    // Form elements
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const forgotPasswordForm = document.getElementById('forgot-password-form');
+    const depositForm = document.getElementById('depositForm');
+    const withdrawForm = document.getElementById('withdrawForm');
+
+    // Password toggle elements
+    const toggleLoginPassword = document.getElementById('toggle-login-password');
+    const toggleSignupPassword = document.getElementById('toggle-signup-password');
+    const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+    const loginPassword = document.getElementById('login-password');
+    const signupPassword = document.getElementById('signup-password');
+    const signupConfirmPassword = document.getElementById('signup-confirm-password');
+
+    // Mock user data
+    let currentUser = null;
+    let walletBalance = 0;
+
+    // Initialize the app
+    initApp();
+
+    function initApp() {
+        // Check if user is logged in (in a real app, this would check cookies/localStorage)
+        const loggedIn = localStorage.getItem('surveyEarnLoggedIn');
+        if (loggedIn) {
+            showDashboard();
+            // Load user data
+            currentUser = JSON.parse(localStorage.getItem('surveyEarnUser')) || getDefaultUser();
+            walletBalance = parseFloat(localStorage.getItem('surveyEarnBalance')) || 0;
+            updateDashboard();
+        } else {
+            showLandingPage();
+        }
+        setupEventListeners();
+    }
+
+    function getDefaultUser() {
+        return {
+            name: "John Doe",
+            email: "john.doe@example.com",
+            phone: "+1234567890",
+            address: "123 Main St, Anytown, USA",
+            joinDate: "June 2023",
+            dob: "1990-01-01"
+        };
+    }
+
+    function setupEventListeners() {
+        // Navigation
+        navLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLogin();
+        });
+
+        navSignup.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSignup();
+        });
+
+        heroSignup.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSignup();
+        });
+
+        // Form toggles
+        showForgotPassword.addEventListener('click', function(e) {
+            e.preventDefault();
+            showForgotPasswordForm();
+        });
+
+        showSignupFromLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSignup();
+        });
+
+        showLoginFromSignup.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLogin();
+        });
+
+        backToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLogin();
+        });
+
+        // Close buttons
+        closeLogin.addEventListener('click', closeAllForms);
+        closeSignup.addEventListener('click', closeAllForms);
+        closeForgotPassword.addEventListener('click', closeAllForms);
+        closeDeposit.addEventListener('click', closeAllModals);
+        closeWithdraw.addEventListener('click', closeAllModals);
+
+        // Password toggles
+        toggleLoginPassword.addEventListener('click', function() {
+            togglePasswordVisibility(loginPassword, toggleLoginPassword);
+        });
+
+        toggleSignupPassword.addEventListener('click', function() {
+            togglePasswordVisibility(signupPassword, toggleSignupPassword);
+        });
+
+        toggleConfirmPassword.addEventListener('click', function() {
+            togglePasswordVisibility(signupConfirmPassword, toggleConfirmPassword);
+        });
+
+        // Dashboard tabs
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                switchTab(tabId);
+            });
+        });
+
+        // Wallet actions
+        fundWalletBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showDepositModal();
+        });
+
+        withdrawBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showWithdrawModal();
+        });
+
+        // Withdrawal method change
+        withdrawMethod.addEventListener('change', function() {
+            if (this.value === 'bank') {
+                bankDetails.style.display = 'block';
+            } else {
+                bankDetails.style.display = 'none';
+            }
+        });
+
+        // Form submissions
+        loginForm.addEventListener('submit', handleLogin);
+        signupForm.addEventListener('submit', handleSignup);
+        forgotPasswordForm.addEventListener('submit', handleForgotPassword);
+        depositForm.addEventListener('submit', handleDeposit);
+        withdrawForm.addEventListener('submit', handleWithdraw);
+        logoutBtn.addEventListener('click', handleLogout);
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === loginContainer || e.target === signupContainer || e.target === forgotPasswordContainer) {
+                closeAllForms();
+            }
+            if (e.target === depositModal || e.target === withdrawModal) {
+                closeAllModals();
+            }
+        });
+    }
+
+    function togglePasswordVisibility(inputElement, iconElement) {
+        if (inputElement.type === 'password') {
+            inputElement.type = 'text';
+            iconElement.classList.remove('fa-eye');
+            iconElement.classList.add('fa-eye-slash');
+        } else {
+            inputElement.type = 'password';
+            iconElement.classList.remove('fa-eye-slash');
+            iconElement.classList.add('fa-eye');
+        }
+    }
+
+    function showLandingPage() {
+        landingPage.style.display = 'block';
+        dashboard.style.display = 'none';
+    }
+
+    function showDashboard() {
+        landingPage.style.display = 'none';
+        dashboard.style.display = 'block';
+    }
+
+    function showLogin() {
+        closeAllForms();
+        loginContainer.classList.add('active');
+    }
+
+    function showSignup() {
+        closeAllForms();
+        signupContainer.classList.add('active');
+    }
+
+    function showForgotPasswordForm() {
+        closeAllForms();
+        forgotPasswordContainer.classList.add('active');
+    }
+
+    function closeAllForms() {
+        loginContainer.classList.remove('active');
+        signupContainer.classList.remove('active');
+        forgotPasswordContainer.classList.remove('active');
+    }
+
+    function showDepositModal() {
+        depositModal.classList.add('active');
+    }
+
+    function showWithdrawModal() {
+        // Set max withdrawal amount
+        document.getElementById('withdraw-amount').max = walletBalance.toFixed(2);
+        withdrawModal.classList.add('active');
+    }
+
+    function closeAllModals() {
+        depositModal.classList.remove('active');
+        withdrawModal.classList.remove('active');
+    }
+
+    function switchTab(tabId) {
+        // Update active tab
+        navTabs.forEach(tab => {
+            tab.classList.toggle('active', tab.getAttribute('data-tab') === tabId);
+        });
+
+        // Show corresponding content
+        tabContents.forEach(content => {
+            content.classList.toggle('active', content.id === tabId + 'Tab');
+        });
+    }
+
+    function updateDashboard() {
+        if (currentUser) {
+            // Update profile info
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profilePhone').textContent = currentUser.phone;
+            document.getElementById('profileAddress').textContent = currentUser.address;
+            document.getElementById('profileJoinDate').textContent = currentUser.joinDate;
+
+            // Update wallet balance
+            document.getElementById('walletBalance').textContent = walletBalance.toFixed(2);
+        }
+    }
+
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        // Basic validation
+        if (!email || !password) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // In a real app, you would make an API call here
+        simulateLogin(email, password);
+    }
+
+    function simulateLogin(email, password) {
+        // Show loading state
+        const submitBtn = loginForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
+        // Simulate API delay
+        setTimeout(() => {
+            currentUser = {
+                name: "Test User",
+                email: email,
+                phone: "+1234567890",
+                address: "123 Test St, Testville",
+                joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+                dob: "1990-01-01"
+            };
+            walletBalance = 25.50;
+
+            // Save to localStorage
+            localStorage.setItem('surveyEarnLoggedIn', 'true');
+            localStorage.setItem('surveyEarnUser', JSON.stringify(currentUser));
+            localStorage.setItem('surveyEarnBalance', walletBalance.toString());
+
+            // Update UI
+            updateDashboard();
+            showDashboard();
+            closeAllForms();
+
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+
+            alert('Login successful!');
+        }, 1500);
+    }
+
+    function handleSignup(e) {
+        e.preventDefault();
+        const name = document.getElementById('signup-name').value;
+        const email = document.getElementById('signup-email').value;
+        const dob = document.getElementById('signup-dob').value;
+        const phone = document.getElementById('signup-phone').value;
+        const address = document.getElementById('signup-address').value;
+        const password = document.getElementById('signup-password').value;
+        const confirmPassword = document.getElementById('signup-confirm-password').value;
+        const agreeTerms = document.getElementById('agree-terms').checked;
+
+        // Validation
+        if (!name || !email || !dob || !phone || !address || !password || !confirmPassword) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
+        if (!agreeTerms) {
+            alert('You must agree to the terms and privacy policy');
+            return;
+        }
+
+        // Show loading state
+        const submitBtn = signupForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+
+        // Simulate API call
+        setTimeout(() => {
+            currentUser = {
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+                dob: dob
+            };
+            walletBalance = 5.00; // Starting bonus
+
+            // Save to localStorage
+            localStorage.setItem('surveyEarnLoggedIn', 'true');
+            localStorage.setItem('surveyEarnUser', JSON.stringify(currentUser));
+            localStorage.setItem('surveyEarnBalance', walletBalance.toString());
+
+            // Update UI
+            updateDashboard();
+            showDashboard();
+            closeAllForms();
+
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+
+            alert('Account created successfully! You received a $5.00 signup bonus!');
+        }, 2000);
+    }
+
+    function handleForgotPassword(e) {
+        e.preventDefault();
+        const email = document.getElementById('forgot-email').value;
+
+        if (!email) {
+            alert('Please enter your email');
+            return;
+        }
+
+        // Show loading state
+        const submitBtn = forgotPasswordForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+        // Simulate API call
+        setTimeout(() => {
+            alert(`Password reset link sent to ${email}`);
+            showLogin();
+            
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        }, 1500);
+    }
+
+    function handleDeposit(e) {
+        e.preventDefault();
+        const amount = parseFloat(document.getElementById('deposit-amount').value);
+        const method = document.getElementById('deposit-method').value;
+
+        if (!amount || amount <= 0 || !method) {
+            alert('Please enter a valid amount and select a payment method');
+            return;
+        }
+
+        // Show loading state
+        const submitBtn = depositForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+        // Simulate API call
+        setTimeout(() => {
+            walletBalance += amount;
+            localStorage.setItem('surveyEarnBalance', walletBalance.toString());
+            updateDashboard();
+            closeAllModals();
+            
+            // Reset form and button
+            depositForm.reset();
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+
+            alert(`Successfully deposited $${amount.toFixed(2)}`);
+        }, 1500);
+    }
+
+    function handleWithdraw(e) {
+        e.preventDefault();
+        const amount = parseFloat(document.getElementById('withdraw-amount').value);
+        const method = document.getElementById('withdraw-method').value;
+
+        if (!amount || amount <= 0 || amount > walletBalance || !method) {
+            alert('Please enter a valid amount and select a withdrawal method');
+            return;
+        }
+
+        if (method === 'bank') {
+            const accountNumber = document.getElementById('account-number').value;
+            const routingNumber = document.getElementById('routing-number').value;
+            
+            if (!accountNumber || !routingNumber) {
+                alert('Please enter your bank account details');
+                return;
+            }
+        }
+
+        // Show loading state
+        const submitBtn = withdrawForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+        // Simulate API call
+        setTimeout(() => {
+            walletBalance -= amount;
+            localStorage.setItem('surveyEarnBalance', walletBalance.toString());
+            updateDashboard();
+            closeAllModals();
+            
+            // Reset form and button
+            withdrawForm.reset();
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+
+            alert(`Withdrawal request for $${amount.toFixed(2)} submitted. Funds will arrive in 3-5 business days.`);
+        }, 1500);
+    }
+
+    function handleLogout() {
+        localStorage.removeItem('surveyEarnLoggedIn');
+        localStorage.removeItem('surveyEarnUser');
+        localStorage.removeItem('surveyEarnBalance');
+        currentUser = null;
+        showLandingPage();
+    }
+
+    // Initialize password strength indicator for signup form
+    const passwordInput = document.getElementById('signup-password');
+    if (passwordInput) {
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            const strengthIndicator = document.createElement('div');
+            strengthIndicator.style.marginTop = '5px';
+            strengthIndicator.style.fontSize = '12px';
+            
+            // Remove previous indicator if exists
+            const existingIndicator = this.parentElement.querySelector('.password-strength');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+            
+            if (password.length === 0) return;
+            
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^A-Za-z0-9]/)) strength++;
+            
+            let message = '';
+            let color = '';
+            
+            switch(strength) {
+                case 0:
+                case 1:
+                    message = 'Weak';
+                    color = 'red';
+                    break;
+                case 2:
+                    message = 'Moderate';
+                    color = 'orange';
+                    break;
+                case 3:
+                    message = 'Strong';
+                    color = 'green';
+                    break;
+                case 4:
+                    message = 'Very Strong';
+                    color = 'darkgreen';
+                    break;
+            }
+            
+            strengthIndicator.textContent = `Password strength: ${message}`;
+            strengthIndicator.style.color = color;
+            strengthIndicator.className = 'password-strength';
+            this.parentElement.appendChild(strengthIndicator);
+        });
+    }
+});
+</script>
+</body>
+</html>
